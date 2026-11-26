@@ -1,19 +1,21 @@
-// require("dotenv").config({path: './env'}) this is we dont use because of common modules and change the sequnce and loooks odd
 import { configDotenv } from "dotenv";
+import app from "./app.js";
 import connectDB from "./db/index.db.js";
 
 configDotenv({
   path: "./.env",
 });
+
 connectDB()
-//   .then((result) => {
-//     app.listen(process.env.PORT || 3000, () => {
-//       console.log(`App is running on port ${process.env.PORT}`);
-//     });
-//   })
-//   .catch((err) => {
-//     console.log(`mongo db connection error failed !!! ${console.error(err)}`);
-//   });
+  .then(() => {
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`App is running on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err.message);
+  });
 
 // basic approach using iify
 // import express from "express";
